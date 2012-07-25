@@ -1,0 +1,72 @@
+軽さと機能の二刀流エディッタ!(予定地)
+=====================================
+
+これなに?
+---------
+
+まだぜんぜん軽さも機能もないよ。
+
+いや、なにもしてないから軽いかな?
+
+node.js と node-ncurses をつかってエディタをつくるよ。
+
+バザ〜ルでゴザ〜ル形式で開発するので、pull-req はすべて受けつけるよ。
+
+一回 pull-req されたら無条件で collabo にいれるよ。
+
+coderepos っぽい感じで適当に砂場りましょう。
+
+駄目そうだったら revert すればいいね。
+
+現状、vim っぽい ui にしてるけど emacs っぽい動きもできてもいいかもね。
+
+全部 js でかいてるから、emacs より楽に拡張もできるといいね。
+
+gvim みたいな gui っぽいやつもつくったらいいね。
+
+macvim みたいな忌み嫌われるやつもつくったらいいね。
+
+node.js でできてるから、中で httpd たちあげたりも楽だね。たちあげる必要はないけどね。
+
+node.js でできてるから、だいたいなんでも中でうごかせるね。
+
+node.js でできてるから jsx で拡張かいたりできるね。
+
+拡張の仕様とか考えてないから誰か考えてね。
+
+まあそもそもまだ基本的な機能ができてないから、誰かたしてね。
+
+現状は、つくること自体を面白がるフェーズってかんじですわ。
+
+ちいさくまとまらずにゴチャゴチャやったらいいね。
+
+ncurses でエディタつくるときにめんどくさい日本語関係の処理はひととおりすませてあるので、わりとサクサク機能追加できてたのしいとおもうよ。
+
+contribute したら名前を AUTHORS ファイルにかいてね。
+
+そう、Plagger みたいなかんじでさ。
+
+いんすと〜る
+------------
+
+まだいんすとーるはできないんだ(ぇ〜〜
+
+とりあえず、現状は依存は node.js と node-ncurses ぐらいなんだ。
+
+node.js はとりあえず最新版をつかっておいてね。
+
+20120725現在、ぼくがつかってるバージョンは v0.8.3 だよ。
+
+node-ncurses はちょっと日本語処理に難があるので、いいかんじにしたやつを用意したよ。
+
+らいせんす
+----------
+
+    The MIT License (MIT)
+
+    Copyright © 2012 Tokuhiro Matsuno, http://64p.org/ <tokuhirom@gmail.com>
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+

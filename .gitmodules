@@ -1,0 +1,3 @@
+[submodule "node_modules/node-ncurses"]
+	path = node_modules/node-ncurses
+	url = git://github.com/tokuhirom/node-ncurses.git
