@@ -113,12 +113,26 @@ var HoshiPad = {
                 } else if (c == 'k') {
                     if (this.cursorY > 0) {
                         this.cursorY -= 1;
+                        this.lineno--;
+                        var line_length = this.buffer.getText(this.lineno).length;
+                        if (line_length == 0) {
+                            this.cursorX = 0;
+                        } else if (this.cursorX >= line_length) {
+                            this.cursorX = line_length - 1;
+                        }
                     } else {
                         this.beep();
                     }
                 } else if (c == 'j') {
                     if (this.cursorY+1 < this.buffer.getLineCount()) {
                         this.cursorY += 1;
+                        this.lineno++;
+                        var line_length = this.buffer.getText(this.lineno).length;
+                        if (line_length == 0) {
+                            this.cursorX = 0;
+                        } else if (this.cursorX >= line_length) {
+                            this.cursorX = line_length - 1;
+                        }
                     } else {
                         this.beep();
                     }
@@ -266,7 +280,7 @@ var HoshiPad = {
     renderMainWindow: function() {
         this.window.cursor(0,0);
         for (var y=0; y<this.window.height-2; y++) {
-            var txt = this.buffer.getText(this.lineno+y);
+            var txt = this.buffer.getText(this.lineno-this.cursorY+y);
             this.window.cursor(y, 0);
             this.window.clrtoeol();
             this.window.addstr(y, 0, txt);
