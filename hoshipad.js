@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var nc=require('./node_modules/node-ncurses/ncurses'),
     fs=require('fs'),
     http=require('http'),
@@ -57,6 +58,10 @@ var HoshiPad = {
         this.o = this.open;
         this.w = this.write;
 
+        if (process.argv.length > 2) {
+            this.open(process.argv[2]);
+        }
+
         process.on('exit', function () {
             nc.cleanup();
             process.exit();
@@ -96,18 +101,26 @@ var HoshiPad = {
                 } else if (c == 'h') {
                     if (this.cursorX > 0) {
                         this.cursorX -= 1;
+                    } else {
+                        this.beep();
                     }
                 } else if (c == 'l') {
                     if (this.cursorX+1 < this.buffer.getText(this.lineno).length) {
                         this.cursorX += 1;
+                    } else {
+                        this.beep();
                     }
                 } else if (c == 'k') {
                     if (this.cursorY > 0) {
                         this.cursorY -= 1;
+                    } else {
+                        this.beep();
                     }
                 } else if (c == 'j') {
                     if (this.cursorY+1 < this.buffer.getLineCount()) {
                         this.cursorY += 1;
+                    } else {
+                        this.beep();
                     }
                 } else if (c == ':') {
                     this.mode = this.MODE_COMMAND;
@@ -147,8 +160,11 @@ var HoshiPad = {
                 this.abort("Unknown mode : " + this.mode);
             }
         }
-        this.render();
+        this.redraw();
         return;
+    },
+    beep: function () {
+        nc.beep();
     },
     log: function (msg) {
         fs.appendFileSync('debug.log', msg + "\n", 'utf-8');
@@ -167,7 +183,8 @@ var HoshiPad = {
         fs.readFile(fname, 'utf-8', (function (err, data) {
             if (err) {
                 this.log(err);
-                this.error = err;
+                this.error = '' + err;
+                this.redraw();
                 return;
             }
             this.buffer.removeAll();
@@ -179,6 +196,8 @@ var HoshiPad = {
             this.cursorY = 0;
             this.lineno = 0;
             this.col    = 0;
+            this.filename = fname;
+            this.redraw();
         }).bind(this));
         this.mode = this.MODE_ESCAPE;
     },
@@ -244,9 +263,18 @@ var HoshiPad = {
             });
         }
     },
-    render: function () {
+    renderMainWindow: function() {
+        this.window.cursor(0,0);
+        for (var y=0; y<this.window.height-2; y++) {
+            var txt = this.buffer.getText(this.lineno+y);
+            this.window.cursor(y, 0);
+            this.window.clrtoeol();
+            this.window.addstr(y, 0, txt);
+        }
+    },
+    redraw: function () {
+        HoshiPad.renderMainWindow();
         HoshiPad.showModeLine();
-        HoshiPad.renderCommandLine();
         HoshiPad.renderCommandLine();
         if (this.mode == this.MODE_COMMAND) {
             HoshiPad.window.cursor(this.window.height-1, this.commandCursorX);
@@ -293,7 +321,7 @@ http.createServer(function (req, res) {
 }).listen(1270);
 
 HoshiPad.init();
-HoshiPad.render();
+HoshiPad.redraw();
 
 /**
  * segv:
